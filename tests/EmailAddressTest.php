@@ -22,31 +22,37 @@ class EmailAddressTest extends TestCase
         $this->email = new EmailAddress(' mail@example.com ');
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         $this->assertSame('mail@example.com', $this->email->get());
     }
 
-    public function testGetUsername()
+    public function testGetUsername(): void
     {
         $this->assertSame('mail', $this->email->getUsername());
     }
 
-    public function testGetHostname()
+    public function testGetHostname(): void
     {
         $this->assertSame('example.com', $this->email->getHostname());
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertSame('mail@example.com', (string) $this->email);
+    }
+
+    public function testIsEquals(): void
+    {
+        $this->assertTrue($this->email->isEquals(new EmailAddress('mail@example.com')));
+        $this->assertFalse($this->email->isEquals(new EmailAddress('email@example.com')));
     }
 
     /**
      * @dataProvider invalidEmailDataProvider
      * @param string $email
      */
-    public function testConstructInvalidEmail(string $email)
+    public function testConstructInvalidEmail(string $email): void
     {
         $this->expectException(InvalidEmailAddressException::class);
         new EmailAddress($email);

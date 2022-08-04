@@ -46,12 +46,17 @@ class EmailAddress implements JsonSerializable
         return explode('@', $this->address)[1];
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->address;
     }
 
-    public function jsonSerialize()
+    public function isEquals(self $email): bool
+    {
+        return $this->address === $email->address;
+    }
+
+    public function jsonSerialize(): string
     {
         return $this->address;
     }
